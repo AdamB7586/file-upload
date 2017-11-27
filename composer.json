@@ -21,5 +21,8 @@
         "psr-4": {
             "Upload\\Tests\\": "tests/"
         }
+    },
+    "require": {
+        "adamb/database": "^1.2"
     }
 }
