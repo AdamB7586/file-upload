@@ -5,7 +5,7 @@
 CREATE TABLE IF NOT EXISTS `uploads` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file` varchar(100) NOT NULL,
-  `type` varchar(30) NOT NULL,
+  `type` varchar(50) NOT NULL,
   `size` int(11) NOT NULL DEFAULT '0',
   `content` mediumblob NOT NULL,
   PRIMARY KEY (`id`),
