@@ -7,6 +7,16 @@ class FileUploadDBAL extends FileUpload{
     protected $db;
     
     protected $upload_database = 'uploads';
+        
+    /**
+     * Connect to the database
+     * @param Database $dbConnection This should be an instance of the PDO database connection
+     */
+    public function __construct($dbConnection = NULL) {
+        if($dbConnection !== NULL){
+            $this->databaseConnect($dbConnection);
+        }
+    }
     
     /**
      * Gets the database table name

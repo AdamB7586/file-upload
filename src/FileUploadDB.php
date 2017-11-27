@@ -9,6 +9,16 @@ class FileUploadDB extends FileUpload{
     protected $upload_database = 'uploads';
     
     /**
+     * Connect to the database
+     * @param PDO $dbConnection This should be an instance of the PDO database connection
+     */
+    public function __construct($dbConnection = NULL) {
+        if($dbConnection !== NULL){
+            $this->databaseConnect($dbConnection);
+        }
+    }
+    
+    /**
      * Gets the database table name
      * @return string This should be the database table name
      */

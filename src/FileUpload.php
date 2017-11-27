@@ -65,8 +65,11 @@ class FileUpload{
     /**
      * Constructor
      */
-    public function __construct() {
-        $this->setRootFolder(getcwd().DIRECTORY_SEPARATOR);
+    public function __construct($folder = NULL) {
+        if($folder === NULL){
+            $folder = getcwd().DIRECTORY_SEPARATOR;
+        }
+        $this->setRootFolder($folder);
     }
     
     /**
