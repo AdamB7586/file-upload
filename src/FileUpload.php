@@ -242,7 +242,7 @@ class FileUpload{
      */
     protected function checkMimeTypes($file) {
         $mimeType = mime_content_type($file["tmp_name"]);
-        if($this->mime_types[strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION))] === strtolower($mimeType)) {
+        if($this->mime_types[strtolower(end((explode(".", $file["name"]))))] === strtolower($mimeType)) {
            return true;
         }
         $this->errorNo = 1;
@@ -269,7 +269,7 @@ class FileUpload{
      * @return boolean Returns true if allowed else returns false
      */
     protected function fileExtCheck($file) {
-        $fileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
+        $fileType = strtolower(end((explode(".", $file["name"]))));
         if(in_array($fileType, $this->allowedExt)) {
             return true;
         }
