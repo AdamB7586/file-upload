@@ -1,6 +1,8 @@
 <?php
 namespace Upload;
 
+use finfo;
+
 class FileUpload{
     protected $errorNo;
     protected static $rootFolder;
@@ -241,7 +243,8 @@ class FileUpload{
      * @return string|boolean If the file is real the mime type will be returned else will return false
      */
     protected function checkMimeTypes($file) {
-        $mimeType = mime_content_type($file["tmp_name"]);
+        $fileInfo = new finfo();
+        $mimeType = $fileInfo->file($file["tmp_name"], FILEINFO_MIME_TYPE);
         if($this->mime_types[strtolower(end((explode(".", $file["name"]))))] === strtolower($mimeType)) {
            return true;
         }
