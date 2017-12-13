@@ -5,7 +5,7 @@ use DBAL\Database;
 use Upload\FileUploadDB;
 use PHPUnit\Framework\TestCase;
 
-class FileUploadDBTest extends TestCase {
+class FileUploadDBALTest extends TestCase {
     
     protected $upload;
     
