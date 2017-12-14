@@ -17,6 +17,7 @@ class FileUploadDBALTest extends TestCase {
     }
     
     public function tearDown(){
+        unset($this->dbc);
         unset($this->upload);
     }
     
