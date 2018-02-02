@@ -53,7 +53,7 @@ class FileUploadDBAL extends FileUpload{
      */
     public function uploadFile($file) {
         if($file['name'] && $this->checkMimeTypes($file) && $this->fileExtCheck($file) && $this->fileSizeCheck($file)){
-            return $this->db->insert($this->getTableName(), array('file' => $file['name'], 'type' => $file['type'], 'size' => $file['size'], 'content' => file_get_contents($file['tmp_name'])));
+            return $this->db->insert($this->getTableName(), array('file' => $this->checkFileName($file['name']), 'type' => $file['type'], 'size' => $file['size'], 'content' => file_get_contents($file['tmp_name'])));
         }
         return false;
     }
@@ -151,7 +151,7 @@ class FileUploadDBAL extends FileUpload{
     protected function setFileContents($file){
         header("Content-Type: ". $file['type']);
         header("Content-Length: ". $file['size']);
-        header("Content-Disposition: attachment; filename=". $file['name']);
+        header("Content-Disposition: attachment; filename=". $this->checkFileName($file['name']));
         echo($file['content']);
     }
 }

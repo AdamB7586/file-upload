@@ -54,7 +54,7 @@ class FileUploadDB extends FileUpload{
     public function uploadFile($file) {
         if($file['name'] && $this->checkMimeTypes($file) && $this->fileExtCheck($file) && $this->fileSizeCheck($file)){
             $query = $this->db->prepare("INSERT INTO `{$this->getTableName()}` (`file`, `type`, `size`, `content`) VALUES (:file, :type, :size, :content);");
-            $query->bindParam(':file', $file['name']);
+            $query->bindParam(':file', $this->checkFileName($file['name']));
             $query->bindParam(':type', $file['type']);
             $query->bindParam(':size', $file['size']);
             $query->bindParam(':content', file_get_contents($file['tmp_name']));
@@ -165,7 +165,7 @@ class FileUploadDB extends FileUpload{
     protected function setFileContents($file){
         header("Content-Type: ". $file['type']);
         header("Content-Length: ". $file['size']);
-        header("Content-Disposition: attachment; filename=". $file['name']);
+        header("Content-Disposition: attachment; filename=". $this->checkFileName($file['name']));
         echo($file['content']);
     }
 }

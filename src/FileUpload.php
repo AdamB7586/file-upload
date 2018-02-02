@@ -190,10 +190,10 @@ class FileUpload{
      * @return boolean Returns true if file uploaded successfully else returns false
      */
     public function uploadFile($file) {
-        if($file['name']){
+        if($this->checkFileName($file['name'])){
             $this->checkDirectoryExists($this->getRootFolder().$this->getFileFolder());
             if($this->checkMimeTypes($file) && $this->fileExtCheck($file) && $this->fileSizeCheck($file) && !$this->fileExist($file)){
-                if(move_uploaded_file($file['tmp_name'], $this->getRootFolder().$this->getFileFolder().basename($file['name']))){
+                if(move_uploaded_file($file['tmp_name'], $this->getRootFolder().$this->getFileFolder().basename($this->checkFileName($file['name'])))){
                     return true;
                 }
             }
@@ -207,8 +207,8 @@ class FileUpload{
      * @return boolean Returns true if deleted else returns false
      */
     public function deleteFile($file) {
-        if(file_exists($this->getRootFolder().$this->getFileFolder().$file["name"])){
-            unlink($this->getRootFolder().$this->getFileFolder().$file["name"]);
+        if(file_exists($this->getRootFolder().$this->getFileFolder().$this->checkFileName($file["name"]))){
+            unlink($this->getRootFolder().$this->getFileFolder().$this->checkFileName($file["name"]));
             return true;
         }
         return false;
@@ -316,5 +316,14 @@ class FileUpload{
             4 => 'The file with this name has already been uploaded or already exists on our server!'
         );
         return $errors[intval($this->errorNo)];
+    }
+    
+    /**
+     * Remove any invalid characters from the filename
+     * @param string $name This should be the original filename
+     * @return string The filename will be returned with any invalid characters removed
+     */
+    protected function checkFileName($name){
+        return preg_replace('/[^a-z0-9-_]/i', '', $name);
     }
 }
