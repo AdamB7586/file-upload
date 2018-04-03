@@ -102,7 +102,9 @@ class FileUpload{
      * @return $this
      */
     public function setMaxFileSize($bytes) {
-        $this->maxFileSize = intval($bytes);
+        if(is_numeric($bytes)){
+            $this->maxFileSize = intval($bytes);
+        }
         return $this;
     }
     
