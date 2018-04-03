@@ -11,7 +11,7 @@ class FileUploadDBALTest extends TestCase {
     protected $upload;
     
     public function setUp(){
-        $this->dbc = new Database('localhost', 'username', 'password', 'test_db', false, false, true, 'sqlite');
+        $this->dbc = new Database($GLOBALS['hostname'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['database']);
         $this->upload = new FileUploadDBAL($this->dbc);
         //$this->upload->databaseConnect();
     }

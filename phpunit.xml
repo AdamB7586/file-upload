@@ -3,7 +3,7 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          forceCoversAnnotation="true"
-         beStrictAboutCoversAnnotation="true"
+         beStrictAboutCoversAnnotation="false"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          verbose="true">
@@ -22,10 +22,9 @@
     </logging>
     
     <php>
-        <var name="HOSTNAME" value="localhost"/>
-        <var name="USERNAME" value="root"/>
-        <var name="PASSWORD" value=""/>
-        <var name="DATABASE" value="uploads"/>
-        <var name="DRIVER" value="mysql"/>
+        <var name="hostname" value="localhost"/>
+        <var name="username" value="root"/>
+        <var name="password" value=""/>
+        <var name="database" value="uploads"/>
     </php>
 </phpunit>

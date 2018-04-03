@@ -12,9 +12,9 @@ class FileUploadDBTest extends TestCase {
     
     public function setUp(){
         $this->dbc = new PDO(
-            'sqlite::memory:',
-            null,
-            null,
+            'mysql:host='.$GLOBALS['hostname'].';port=3306;dbname='.$GLOBALS['database'],
+            $GLOBALS['username'],
+            $GLOBALS['password'],
             array(PDO::ATTR_PERSISTENT => true)
         );
         $this->upload = new FileUploadDB($this->dbc);
