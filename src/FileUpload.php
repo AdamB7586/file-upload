@@ -63,6 +63,14 @@ class FileUpload{
         'odt' => 'application/vnd.oasis.opendocument.text',
         'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
     );
+    
+    protected $errorMsg = [
+        0 => 'An error occured while adding the file. Please try again!',
+        1 => 'The file is not a valid file format',
+        2 => 'The file is too large to upload please make sure your file is smaller than %1$sMB in size, your file is %2$s',
+        3 => 'The file is not allowed! Please make sure your file has of of the allowed extensions',
+        4 => 'The file with this name has already been uploaded or already exists on our server!'
+    ];
 
     /**
      * Constructor
@@ -310,14 +318,7 @@ class FileUpload{
      * @return string Returns the error message
      */
     public function getErrorMsg() {
-        $errors = array(
-            0 => 'An error occured while adding the file. Please try again!',
-            1 => 'The file is not a valid file format',
-            2 => 'The file is too large to upload please make sure your file is smaller than '. number_format(($this->maxFileSize / 100000), 2).'MB in size, your file is '.$this->fileSize,
-            3 => 'The file is not allowed! Please make sure your file has of of the allowed extensions',
-            4 => 'The file with this name has already been uploaded or already exists on our server!'
-        );
-        return $errors[intval($this->errorNo)];
+        return sprintf($this->errorMsg[intval($this->errorNo)], number_format(($this->maxFileSize / 100000), 2), $this->fileSize);
     }
     
     /**
