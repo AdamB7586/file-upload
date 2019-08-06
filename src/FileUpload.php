@@ -327,6 +327,6 @@ class FileUpload{
      * @return string The filename will be returned with any invalid characters removed
      */
     protected function checkFileName($name){
-        return preg_replace('/[^a-z0-9-_]/i', '', $name);
+        return preg_replace('/[^a-z0-9-_.]/i', '', $name);
     }
 }
