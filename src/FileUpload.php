@@ -255,7 +255,7 @@ class FileUpload{
     protected function checkMimeTypes($file) {
         $fileInfo = new finfo();
         $mimeType = $fileInfo->file($file["tmp_name"], FILEINFO_MIME_TYPE);
-        if($this->mime_types[strtolower(end((explode(".", $file["name"]))))] === strtolower($mimeType)) {
+        if($this->mime_types[$this->getType($file["name"])] === strtolower($mimeType)) {
            return true;
         }
         $this->errorNo = 1;
@@ -282,7 +282,7 @@ class FileUpload{
      * @return boolean Returns true if allowed else returns false
      */
     protected function fileExtCheck($file) {
-        $fileType = strtolower(end((explode(".", $file["name"]))));
+        $fileType = $this->getType($file["name"]);
         if(in_array($fileType, $this->allowedExt)) {
             return true;
         }
@@ -328,5 +328,18 @@ class FileUpload{
      */
     protected function checkFileName($name){
         return preg_replace('/[^a-z0-9-_.]/i', '', $name);
+    }
+    
+    /**
+     * Gets the file extension type
+     * @param string $name The file name
+     * @return string|boolean If extension exists will return a string else returns false
+     */
+    protected function getType($name) {
+        $array = explode(".", $name);
+        if(is_array($array)){
+            return strtolower(end($array));
+        }
+        return false;
     }
 }

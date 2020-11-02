@@ -54,10 +54,10 @@ class FileUploadDB extends FileUpload{
     public function uploadFile($file) {
         if($file['name'] && $this->checkMimeTypes($file) && $this->fileExtCheck($file) && $this->fileSizeCheck($file)){
             $query = $this->db->prepare("INSERT INTO `{$this->getTableName()}` (`file`, `type`, `size`, `content`) VALUES (:file, :type, :size, :content);");
-            $query->bindParam(':file', $this->checkFileName($file['name']));
-            $query->bindParam(':type', $file['type']);
-            $query->bindParam(':size', $file['size']);
-            $query->bindParam(':content', file_get_contents($file['tmp_name']));
+            $query->bindValue(':file', $this->checkFileName($file['name']));
+            $query->bindValue(':type', $file['type']);
+            $query->bindValue(':size', $file['size']);
+            $query->bindValue(':content', file_get_contents($file['tmp_name']));
             return $query->execute();
         }
         return false;
